@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+
+  mysqlapi:
+    image: mysqlapi
+    restart: unless-stopped
+    container_name: mysqlapi
+    build: ./node/
+    ports:
+      - 3008:3008
+      
+  mysql:
+    image: mysql
+    restart: unless-stopped
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    build: ./database/
+    ports:
+      - 3306:3306
+      
+networks:
+  default:
+    external:
+      name: my-net
